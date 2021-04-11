@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const download = async (type) => {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    console.log(tab);
 
     chrome.tabs.create({ active: true, url: uri + ":" + tab.url + ";" + type });
 }
