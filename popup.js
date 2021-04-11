@@ -1,22 +1,19 @@
-// // When the button is clicked, inject setPageBackgroundColor into current page
-// changeColor.addEventListener("click", async () => {
-//     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+const uri = "ytdl";
 
-//     chrome.scripting.executeScript({
-//         target: { tabId: tab.id },
-//         function: setPageBackgroundColor,
-//     });
-// });
-
-// // The body of this function will be executed as a content script inside the
-// // current page
-// function setPageBackgroundColor() {
-//     chrome.storage.sync.get("color", ({ color }) => {
-//         document.body.style.backgroundColor = color;
-//     });
-// }
-
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     for (const a of document.getElementsByTagName('a'))
-        a.onclick = () => chrome.tabs.create({ active: true, url: a.href });
+        a.onclick = () => {
+            if (a.href && a.href.length > 0)
+                chrome.tabs.create({ active: true, url: a.href });
+        }
+
+    document.getElementById("downloadMp3").onclick = async () => download("mp3");
+    document.getElementById("downloadMp4").onclick = async () => download("mp4");
 });
+
+const download = async (type) => {
+    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    console.log(tab);
+
+    chrome.tabs.create({ active: true, url: uri + ":" + tab.url + ";" + type });
+}
