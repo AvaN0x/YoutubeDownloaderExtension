@@ -1,0 +1,12 @@
+{
+    "name": "YoutubeDownloader",
+    "description": "Download youtube videos using AvaN0x's application",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "256": "/res/icon.png"
+    }
+}
